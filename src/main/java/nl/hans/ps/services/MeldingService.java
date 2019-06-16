@@ -21,11 +21,11 @@ public class MeldingService {
 
     public Melding add(Melding melding){
 
-        if (!meldingenRepository.alreadyExists(melding)) {
+        if (!meldingenRepository.exits(melding)) {
             return meldingenRepository.add(melding);
         } else {
             // Todo: Replace with line below with something which makes more sence
-            throw new RuntimeException("Melding "+ melding.getMelding_id() + " already exists");
+            throw new RuntimeException("Melding "+ melding.getMeldingId() + " already exists");
         }
     }
 
@@ -42,19 +42,19 @@ public class MeldingService {
 
     public List<Melding> findAll(Integer maxResults) {
 
-        return meldingenRepository.findAll("melding_id", maxResults);
+        return meldingenRepository.findAll("meldingId", maxResults);
     }
 
     public Melding update(String id, Melding newMelding) {
 
-        Melding melding = findById(newMelding.getMelding_id());
+        Melding melding = findById(id);
         if (melding == null) {
             throw new RuntimeException("Melding bestaat niet: " + id);
         }
-        logger.info("before update: " + melding.toString());
 
-        if (newMelding.getMelding_tekst() != null) {
-            melding.setMelding_tekst(newMelding.getMelding_tekst());
+        logger.info("before update: " + melding.toString());
+        if (newMelding.getMeldingTekst() != null) {
+            melding.setMeldingTekst(newMelding.getMeldingTekst());
         }
         logger.info("after update: " + melding.toString());
 

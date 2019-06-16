@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.servlet.annotation.WebServlet;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
@@ -24,19 +23,19 @@ public class MeldingControler {
     @EJB
     MeldingService meldingService;
 
-    public MeldingControler() {
-
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addMelding(Melding melding) {
 
-        UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 
         try {
-            melding = meldingService.add(melding);
-            URI uri = uriBuilder.path(String.valueOf(melding.getMelding_id())).build();
+            logger.debug("before adding melding: " + melding);
+            Melding addedMelding = meldingService.add(melding);
+            logger.debug("added melding: " + addedMelding);
+
+            UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+            URI uri = uriBuilder.path(String.valueOf(addedMelding.getMeldingId())).build();
+            
             return Response.created(uri).build();
         } catch (RuntimeException e) {
             String message = e.getMessage();
@@ -106,7 +105,7 @@ public class MeldingControler {
         logger.debug("id: " + id.toString());
         logger.debug("update: " + newMelding.toString());
 
-        newMelding.setMelding_id(id);
+        newMelding.setMeldingId(id);
         try {
             Melding updatedMelding = meldingService.update(id, newMelding);
             return Response.ok().entity(updatedMelding).build();

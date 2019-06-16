@@ -82,7 +82,7 @@ public abstract class GenericRepository<T> {
         return query.setMaxResults(maxResults).getResultList();
     }
 
-    public boolean alreadyExists(Map<String, Object> queryParameters) {
+    public boolean exists(Map<String, Object> queryParameters) {
 
         List entities = findByParameters(queryParameters, null, 1);
         return entities.size() > 0 ? true : false;

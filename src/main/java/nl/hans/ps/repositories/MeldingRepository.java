@@ -28,10 +28,10 @@ public class MeldingRepository extends GenericRepository<Melding> {
         return em;
     }
 
-    public boolean alreadyExists(Melding melding) {
+    public boolean exits(Melding melding) {
 
         Map<String, Object> parameters = new HashMap();
-        parameters.put("melding_id", melding.getMelding_id());
-        return alreadyExists(parameters);
+        parameters.put("meldingId", melding.getMeldingId());
+        return exists(parameters);
     }
 }

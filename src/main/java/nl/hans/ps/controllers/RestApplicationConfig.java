@@ -6,5 +6,4 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("/ps/")
 public class RestApplicationConfig extends Application {
 
-
 }

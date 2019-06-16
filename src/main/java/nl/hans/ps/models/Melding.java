@@ -1,5 +1,6 @@
 package nl.hans.ps.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,9 +10,11 @@ import javax.persistence.Table;
 public class Melding {
 
     @Id
-    private String melding_id;
+    @Column(name = "melding_id")
+    private String meldingId;
 
-    private String melding_tekst;
+    @Column(name = "melding_tekst")
+    private String meldingTekst;
 
     public Melding() {
 
@@ -19,37 +22,56 @@ public class Melding {
 
     public Melding(String id, String tekst) {
 
-        this.melding_id = id;
-        this.melding_tekst = tekst;
+        this.meldingId = id;
+        this.meldingTekst = tekst;
     }
 
-    public String getMelding_id() {
+    public String getMeldingId() {
 
-        return melding_id;
+        return meldingId;
     }
 
-    public void setMelding_id(String melding_id) {
+    public void setMeldingId(String meldingId) {
 
-        this.melding_id = melding_id;
+        this.meldingId = meldingId;
     }
 
-    public String getMelding_tekst() {
+    public String getMeldingTekst() {
 
-        return melding_tekst;
+        return meldingTekst;
     }
 
-    public void setMelding_tekst(String melding_tekst) {
+    public void setMeldingTekst(String meldingTekst) {
 
-        this.melding_tekst = melding_tekst;
+        this.meldingTekst = meldingTekst;
     }
 
     @Override
     public String toString() {
 
         return "Melding{" +
-                "melding_id='" + melding_id + '\'' +
-                ", melding_tekst='" + melding_tekst + '\'' +
+                "meldingId='" + meldingId + '\'' +
+                ", meldingTekst='" + meldingTekst + '\'' +
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Melding melding = (Melding) o;
+
+        if (!meldingId.equals(melding.meldingId)) return false;
+        return meldingTekst.equals(melding.meldingTekst);
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = meldingId.hashCode();
+        result = 31 * result + meldingTekst.hashCode();
+        return result;
+    }
 }
